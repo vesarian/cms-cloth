@@ -5,7 +5,16 @@ import (
 	"github.com/vesarian/cms-cloth/models"
 )
 
-func CreateUser(User *models.User)	error {
+func GetUser(User *[]models.User) error {
+	db := database.GetDB()
+	err := db.Model(&models.User{}).Find(&User).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func CreateUser(User *models.User) error {
 	db := database.GetDB()
 	err := db.Debug().Create(&User).Error
 	return err
